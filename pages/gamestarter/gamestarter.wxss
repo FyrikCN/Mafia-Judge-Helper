@@ -1,0 +1,59 @@
+/* pages/gamesetting/gamesetting.wxss */
+#gameStarterContainer {
+  font-size: larger;
+}
+
+#idenditiesConfirmTitle {
+  margin-left: -350rpx;
+  margin-top: 100rpx;
+}
+
+.identityType {
+  line-height: 150rpx;
+}
+
+.identityamount {
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.plusMinus {
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 10rpx;
+}
+
+radio-group {
+  flex-direction: column;
+}
+
+.killingmode {
+  margin-bottom: 50rpx;
+}
+
+/*复选框外框样式*/
+radio .wx-radio-input {
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #999;
+  border-radius: 100%;
+}
+
+/*复选框外框选中样式*/
+radio .wx-radio-input .wx-radio-input-checked {
+  border: none;
+  color: #3cbcee;
+  background: #3cbcee
+}
+
+/*复选框选中后内部样式*/
+radio .wx-radio-input.wx-radio-input-checked::before {
+  width: 60%;
+  height: 60%;
+  background: #3cbcee;
+  border: 4px solid;
+  border-radius: 100%;
+  content: '';
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}

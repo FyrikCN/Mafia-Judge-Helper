@@ -1,0 +1,40 @@
+/* pages/prehome/prehome.wxss */
+#gamemodes-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 200rpx 0;
+}
+
+.gamemode {
+  border: 1px solid #405f80;
+  border-radius: 30rpx;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+  background: -webkit-linear-gradient(left,pink,lightblue,skyblue);
+  border-width: 3rpx;
+}
+
+#gamemode-12 {
+  width: 395rpx;
+  height: 395rpx;
+  line-height: 395rpx;
+  margin-right: 5rpx;
+  margin-bottom: 5rpx;
+}
+
+#gamemode-9 {
+  width: 145rpx;
+  height: 395rpx;
+  line-height: 395rpx;
+  margin-left: 5rpx;
+  margin-bottom: 5rpx;
+}
+
+#gamemode-new {
+  width: 550rpx;
+  height: 145rpx;
+  line-height: 145rpx;
+  margin-top: 5rpx;
+}

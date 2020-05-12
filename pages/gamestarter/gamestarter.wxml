@@ -1,0 +1,34 @@
+<!--pages/gamesetting/gamesetting.wxml-->
+<view class="container" id="gameStarterContainer">
+  <text id="idenditiesConfirmTitle">请确认配置详情：</text>
+  <view class="container" id="identityTypes-container">
+    <view class="identityType">
+      狼人：
+      <image class="plusMinus minus" src="../../img/minus.JPG"></image>
+      <text class="identityamount"> {{werewolfamount}} </text>
+      <image class="plusMinus plus" src="../../img/plus.JPG"></image>
+    </view>
+    <view class="identityType">
+      神民：
+      <image class="plusMinus minus seniorVillagerSetting" src="../../img/minus.JPG"></image>
+      <text class="identityamount"> {{seniorvillageramount}} </text>
+      <image class="plusMinus plus seniorVillagerSetting" src="../../img/plus.JPG"></image>
+    </view>
+    <view class="identityType">
+      平民：
+      <image class="plusMinus minus" src="../../img/minus.JPG"></image>
+      <text class="identityamount"> {{villageramount}} </text>
+      <image class="plusMinus plus" src="../../img/plus.JPG"></image>
+    </view>
+  </view>
+  <view>
+    <radio-group>
+      <view class="killingmode" id="killingmode-partly">
+        <radio checked="true"/><text>屠边局</text>
+      </view>
+      <view class="killingmode" id="killingmode-fully">
+        <radio/><text>屠城局</text>
+      </view>
+    </radio-group>
+  </view>
+</view>

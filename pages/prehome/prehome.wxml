@@ -1,0 +1,9 @@
+<!--pages/prehome/prehome.wxml-->
+<!--
+<view class="bgimg" style="background-image: url('../../img/werewolf.jpg')"></view>
+-->
+<view class="container" id="gamemodes-container" bindtap="onModeTap">
+  <view class="gamemode" id="gamemode-12">12人局</view>
+  <view class="gamemode" id="gamemode-9">9人局</view>
+  <view class="gamemode" id="gamemode-new">自定义游戏</view>
+</view>

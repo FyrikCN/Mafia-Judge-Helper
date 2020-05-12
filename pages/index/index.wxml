@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <view class="container">
+<!--
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
@@ -7,7 +8,40 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
+-->
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+  <view wx:if="{{hour > 12}}">Good evening, Fyrik</view>
+  <block wx:else>
+    <view>Good morning, Fyrik</view>
+  </block>
+
+<template name="msgItem">
+  <view>
+    <text> {{index}}: {{msg}} </text>
+    <text> Time: {{time}} </text>
+  </view>
+</template>
+<template is="msgItem" data="{{...item}}"/>
+
+<view id="tapTest" data-hi="WeChat" bindtap="onTap" bindlongpress="onLongPress">{{clicktext}}</view>
+
+<button type="primary" plain="true" bindtap="goToPreHome">PreHome</button>
+<!--
+<view> Global: {{global}}</view>
+
+<template name="odd">
+  <view>odd</view>
+</template>
+
+<template name="even">
+  <view>even</view>
+</template>
+
+<block wx:for="{{[1, 2, 3, 4, 5]}}">
+  <template is="{{item % 2 == 0 ? 'even' : 'odd'}}"/>
+</block>
+-->
+
 </view>

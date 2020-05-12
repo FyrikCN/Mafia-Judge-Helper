@@ -5,6 +5,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+/*
+.bgimg {
+  padding: 400rpx 0;
+  margin-bottom: -800rpx;
+  opacity: 0.5;
+  box-sizing: border-box;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}*/

@@ -5,10 +5,32 @@ const app = getApp()
 Page({
   data: {
     motto: (new Date().toLocaleTimeString()),
+    hour: new Date().getHours(),
+    clicktext: ' Click me! ',
+    item: {
+      index: 0,
+      msg: 'this is a template',
+      time: '2016-06-18'
+    },
     userInfo: {},
+    global: app.globalData.glb,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+  onTap: function(event) {
+    this.setData({clicktext: event.type});
+    console.log(event.type)
+  },
+  onLongPress: function(event) {
+    this.setData({clicktext: event.type})
+    console.log(event.type)
+  },
+  goToPreHome: function() {
+    wx.navigateTo({
+      url: '../prehome/prehome',
+    })
+  },
+
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -39,8 +61,20 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+        },
+        fail: function() {
+          wx.showModal({
+            title: '提示',
+            content: '当前微信的版本过低，请更新微信后再试。'
+          })
         }
       })
+    }
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '伞兵一号卢本伟 准备就绪！',
+      path: '/page/index/index'
     }
   },
   getUserInfo: function(e) {
