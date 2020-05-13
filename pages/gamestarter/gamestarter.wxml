@@ -1,6 +1,8 @@
 <!--pages/gamesetting/gamesetting.wxml-->
+
+<!--游戏配置窗口主体-->
 <view class="container" id="gameStarterContainer">
-  <text id="idenditiesConfirmTitle">请确认配置详情：</text>
+  <text id="idenditiesConfirmTitle">配置游戏身份。</text>
   <view class="container" id="identityTypes-container">
     <view class="identityType">
       狼人：
@@ -10,9 +12,17 @@
     </view>
     <view class="identityType">
       神民：
-      <image class="plusMinus minus seniorVillagerSetting" src="../../img/minus.JPG"></image>
+      <image 
+        class="plusMinus minus seniorVillagerSetting" 
+        src="../../img/minus.JPG"
+        bindtap="showPopup">
+      </image>
       <text class="identityamount"> {{seniorvillageramount}} </text>
-      <image class="plusMinus plus seniorVillagerSetting" src="../../img/plus.JPG"></image>
+      <image 
+        class="plusMinus plus seniorVillagerSetting" 
+        src="../../img/plus.JPG"
+        bindtap="showPopup">
+      </image>
     </view>
     <view class="identityType">
       平民：
@@ -22,13 +32,32 @@
     </view>
   </view>
   <view>
-    <radio-group>
+    <radio-group bindchange="radiochange">
       <view class="killingmode" id="killingmode-partly">
-        <radio checked="true"/><text>屠边局</text>
+        <radio value="partly" id="radio-partly" checked="true"/>
+        <label for="radio-partly">屠边局</label>
       </view>
       <view class="killingmode" id="killingmode-fully">
-        <radio/><text>屠城局</text>
+        <radio value="fully" id="radio-fully"/>
+        <label for="radio-fully">屠城局</label>
       </view>
     </radio-group>
   </view>
+  <view id="killingModeDesc">
+    <text>{{killingmodedesc}}</text>
+  </view>
+</view>
+
+<!--神民配置弹窗-->
+<view class="container">
+  <popup id='popup' 
+      title='神民配置' 
+      content='神民配置窗口' 
+      btn_ok='确定' 
+      btn_no='取消'
+      seniorvillageramount="{{seniorvillageramount}}"
+      bind:checkboxChange="_checkboxChange"
+      bind:error="_error"  
+      bind:success="_success">
+  </popup>
 </view>

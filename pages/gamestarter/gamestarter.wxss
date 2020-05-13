@@ -57,3 +57,7 @@ radio .wx-radio-input.wx-radio-input-checked::before {
   transform: translate(-50%, -50%) scale(1);
   -webkit-transform: translate(-50%, -50%) scale(1);
 }
+
+#killingModeDesc {
+  width: 500rpx;
+}

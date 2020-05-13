@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    gamemodeid: "gamemode-9"
+    partlykill: "*狼人杀光所有神民或者所有平民时，狼人获胜。",
+    fullykill: "*狼人需杀光所有人才能获胜。",
+    gamemodeid: "gamemode-9",
+    killingmodedesc: "*狼人杀光所有神民或者所有平民时，狼人获胜。"
   },
 
   /**
@@ -28,13 +31,38 @@ Page({
       });
   },
 
+  radiochange(e) {
+      this.setData({
+        killingmodedesc: (e.detail.value == "partly" 
+        ? this.data.partlykill
+        : this.data.fullykill)
+      })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.popup = this.selectComponent("#popup");
   },
 
+  showPopup() {
+    this.popup.showPopup();
+  },
+  _checkboxChange(e) {
+    console.log(e.detail.checked.length);
+  },
+  //取消事件
+  _error() {
+    console.log('你点击了取消');
+    this.popup.hidePopup();
+  },
+  //确认事件
+  _success() {
+    console.log('你点击了确定');
+    this.popup.hidePopup();
+  },
+  
   /**
    * 生命周期函数--监听页面显示
    */
