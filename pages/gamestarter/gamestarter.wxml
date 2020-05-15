@@ -3,34 +3,29 @@
 <!--游戏配置窗口主体-->
 <view class="container" id="gameStarterContainer">
   <text id="idenditiesConfirmTitle">配置游戏身份。</text>
-  <view class="container" id="identityTypes-container">
+  <view class="container" id="identityTypes-container" bindtap="amountChange">
     <view class="identityType">
       狼人：
-      <image class="plusMinus minus" src="../../img/minus.JPG"></image>
+      <image class="plusMinus minus" id="werewolfMinus" src="../../img/minus.jpg"></image>
       <text class="identityamount"> {{werewolfamount}} </text>
-      <image class="plusMinus plus" src="../../img/plus.JPG"></image>
+      <image class="plusMinus plus" id="werewolfPlus" src="../../img/plus.jpg"></image>
     </view>
     <view class="identityType">
       神民：
-      <image 
-        class="plusMinus minus seniorVillagerSetting" 
-        src="../../img/minus.JPG"
-        bindtap="showPopup">
+      <image class="plusMinus minus seniorVillagerSetting" id="seniorVillagerMinus" src="../../img/minus.jpg">
       </image>
       <text class="identityamount"> {{seniorvillageramount}} </text>
-      <image 
-        class="plusMinus plus seniorVillagerSetting" 
-        src="../../img/plus.JPG"
-        bindtap="showPopup">
+      <image class="plusMinus plus seniorVillagerSetting" id="seniorVillagerPlus" src="../../img/plus.jpg">
       </image>
     </view>
     <view class="identityType">
       平民：
-      <image class="plusMinus minus" src="../../img/minus.JPG"></image>
+      <image class="plusMinus minus" id="villagerMinus" src="../../img/minus.jpg"></image>
       <text class="identityamount"> {{villageramount}} </text>
-      <image class="plusMinus plus" src="../../img/plus.JPG"></image>
+      <image class="plusMinus plus" id="villagerPlus" src="../../img/plus.jpg"></image>
     </view>
   </view>
+  <text id="totalPlayers">游戏总人数：{{totalplayers}}</text>
   <view>
     <radio-group bindchange="radiochange">
       <view class="killingmode" id="killingmode-partly">
@@ -46,13 +41,16 @@
   <view id="killingModeDesc">
     <text>{{killingmodedesc}}</text>
   </view>
+  <view id="gameStartButton">
+    <button type="primary" bindtap="gameStart">开始游戏</button>
+  </view>
 </view>
 
 <!--神民配置弹窗-->
 <view class="container">
   <popup id='popup' 
       title='神民配置' 
-      content='神民配置窗口' 
+      content='' 
       btn_ok='确定' 
       btn_no='取消'
       seniorvillageramount="{{seniorvillageramount}}"

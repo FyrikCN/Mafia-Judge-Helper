@@ -1,4 +1,6 @@
 // pages/gamesetting/gamesetting.js
+
+const app = getApp();
 Page({
 
   /**
@@ -18,17 +20,63 @@ Page({
     console.log(query.id);
     this.setData({gamemodeid: query.id});
     if(this.data.gamemodeid == "gamemode-12")
+    {
       this.setData({
         werewolfamount: 4,
         seniorvillageramount: 4,
-        villageramount: 4
+        villageramount: 4,
       });
+      app.globalData.seniorSelected = [0, 1, 2, 3]
+    }
     else if (this.data.gamemodeid == "gamemode-9" || this.data.gamemodeid == "gamemode-new")
+    {
       this.setData({
         werewolfamount: 3,
         seniorvillageramount: 3,
         villageramount: 3
       });
+      app.globalData.seniorSelected = [0, 1, 2]
+    }
+  },
+
+  setTotalPlayers() {
+    this.setData({
+      totalplayers: this.data.werewolfamount + this.data.seniorvillageramount + this.data.villageramount
+    });
+    console.log(this.data.totalplayers);
+  },
+
+  amountChange(e) {
+    switch(e.target.id) {
+      case 'werewolfPlus':
+        this.setData({
+          werewolfamount: this.data.werewolfamount + 1
+        });
+        break;
+      case 'werewolfMinus':
+        this.setData({
+          werewolfamount: this.data.werewolfamount - 1
+        });
+        break;
+      case 'villagerPlus':
+        this.setData({
+          villageramount: this.data.villageramount + 1
+        });
+        break;
+      case 'villagerMinus':
+        this.setData({
+          villageramount: this.data.villageramount - 1
+        });
+        break;
+      case 'seniorVillagerMinus':
+        this.popup.showPopup();
+        break;
+      case 'seniorVillagerPlus':
+        this.popup.showPopup();
+        break;
+      default:
+    };
+    this.setTotalPlayers();
   },
 
   radiochange(e) {
@@ -44,13 +92,14 @@ Page({
    */
   onReady: function () {
     this.popup = this.selectComponent("#popup");
+    this.setTotalPlayers();
   },
 
   showPopup() {
     this.popup.showPopup();
   },
   _checkboxChange(e) {
-    console.log(e.detail.checked.length);
+    //console.log(e.detail.checked.length);
   },
   //取消事件
   _error() {
@@ -58,9 +107,21 @@ Page({
     this.popup.hidePopup();
   },
   //确认事件
-  _success() {
-    console.log('你点击了确定');
+  _success(e) {
+    //console.log(e);
+    var newSeniorAmount = e.detail.checkedamount;
+    this.setData({
+      seniorvillageramount: newSeniorAmount
+    });
+    this.setTotalPlayers();
     this.popup.hidePopup();
+    console.log("seniorSelected: " + app.globalData.seniorSelected);
+  },
+
+  gameStart() {
+    wx.navigateTo({
+      url: '../game/game'
+    })
   },
   
   /**

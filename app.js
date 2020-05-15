@@ -35,6 +35,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    glb: '2'
+    glb: '2',
+    seniorSelected: [],
   }
 })

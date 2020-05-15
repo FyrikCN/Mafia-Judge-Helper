@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/test/test",
-    "pages/gamestarter/gamestarter"
+    "pages/gamestarter/gamestarter",
+    "pages/game/game"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -28,9 +28,16 @@
   font-size: 40rpx;
   border-bottom: 2rpx solid red;
 }
+#checkbox-container {
+  margin-top: 50rpx;
+  margin-left: 50rpx;
+}
+.checkbox-label {
+  margin-left: 20rpx;
+}
 .wx-popup-con {
   margin: 60rpx 10rpx;
-  text-align: center;
+  text-align: left;
 }
 .wx-popup-btn {
   display: flex;
