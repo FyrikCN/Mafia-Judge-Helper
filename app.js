@@ -36,6 +36,12 @@ App({
   globalData: {
     userInfo: null,
     glb: '2',
-    seniorSelected: [],
+    identitiesDetails: {
+      seniorSelected: [],
+      werewolfAmount: 3,
+      seniorVillagerAmount: 3,
+      villagerAmount: 3,
+      totalPlayes: 9
+    }
   }
 })

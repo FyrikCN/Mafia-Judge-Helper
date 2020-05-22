@@ -1,1 +1,36 @@
 /* pages/game/game.wxss */
+#gameContainer {
+  font-size: larger;
+}
+
+#dayNum {
+  margin-top: 50rpx;
+}
+
+.progress {
+  color: red;
+}
+
+#playersCards {
+  width: 576rpx;
+  display: flex;
+  margin-top: 50rpx;
+  flex-wrap: wrap;
+}
+
+.player {
+  width: 120rpx;
+  margin: 10rpx;
+  text-align: center;
+  flex-direction: column;
+}
+
+image {
+  border-radius: 20rpx;
+  width: 120rpx;
+  height: 120rpx;
+}
+
+#progressContainer {
+  margin-top: 50rpx;
+}

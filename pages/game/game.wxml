@@ -1,4 +1,20 @@
 <!--pages/game/game.wxml-->
-<text>pages/game/game.wxml</text>
+<view class="container" id="gameContainer">
+  <rich-text id="dayNum">第 <text id="dayNum" class="progress">{{daynum}}</text> 天  
+    |  <text id="dayOrNight" class="progress">{{dayornight}}</text>  
+    |  当前阶段：<text id="status" class="progress">{{status}}</text>
+  </rich-text>
+  <view id="playersCards" bindtap="playertapped">
+    <view class="player" 
+          wx:for="{{identitiesDetails.totalPlayers}}" 
+          wx:key="index"
+          style="border: 2rpx {{playersstatus[index].bordercolor}} solid; border-radius: 20rpx">
+      <image src="../../img/unknow.jpg" id="{{index}}"></image>
+      <label>{{index+1}}</label>
+    </view> 
+  </view>
+  <view id="progressContainer">
+    <text id="progressHint" hidden="{{progresshidden}}">{{progresshint}}</text>
+  </view>
 
-<view>{{seniorSelected}}</view>
+</view>
