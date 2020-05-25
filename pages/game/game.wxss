@@ -31,6 +31,18 @@ image {
   height: 120rpx;
 }
 
+.gray {
+  filter: grayscale();
+}
+
 #progressContainer {
+  margin-top: 50rpx;
+}
+
+#confirmButton {
+  margin-top: 50rpx;
+}
+
+#cancelButton {
   margin-top: 50rpx;
 }

@@ -26,6 +26,7 @@ Page({
         seniorvillageramount: 4,
         villageramount: 4,
       });
+      app.globalData.identitiesDetails.seniorSelected = [0, 1, 2, 3]
     }
     else if (this.data.gamemodeid == "gamemode-9" || this.data.gamemodeid == "gamemode-new")
     {
@@ -34,6 +35,7 @@ Page({
         seniorvillageramount: 3,
         villageramount: 3
       });
+      app.globalData.identitiesDetails.seniorSelected = [0, 1, 2]
     }
   },
 
@@ -113,14 +115,14 @@ Page({
     });
     this.setTotalPlayers();
     this.popup.hidePopup();
-    console.log("seniorSelected: " + app.globalData.seniorSelected);
+    console.log("seniorSelected: " + app.globalData.identitiesDetails.seniorSelected);
   },
 
   gameStart() {
     app.globalData.identitiesDetails.werewolfAmount = this.data.werewolfamount;
     app.globalData.identitiesDetails.seniorVillagerAmount = this.data.seniorvillageramount;
     app.globalData.identitiesDetails.villagerAmount = this.data.villageramount;
-    app.globalData.identitiesDetails.seniorSelected = this.data.seniorSelected;
+    //app.globalData.identitiesDetails.seniorSelected = this.data.seniorSelected;
     app.globalData.identitiesDetails.totalPlayers = this.data.totalplayers;
     wx.navigateTo({
       url: '../game/game'

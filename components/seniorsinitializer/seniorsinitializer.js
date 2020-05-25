@@ -111,7 +111,7 @@ Component({
         modifiedseniorammount: e.detail.value.length,
         content: this.data.seniorsidentities[1].description
       });
-      app.globalData.seniorSelected = e.detail.value;
+      app.globalData.identitiesDetails.seniorSelected = e.detail.value;
       //console.log(this.data.modifiedseniorammount);
       this.triggerEvent(
         "checkboxChange",
@@ -120,7 +120,7 @@ Component({
         });
     },
     identitytap(e) {
-      console.log(e.currentTarget.id);
+      //console.log(e.currentTarget.id);
       this.setData({
         content: this.data.seniorsidentities[e.currentTarget.id].description
       })

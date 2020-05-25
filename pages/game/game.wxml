@@ -9,12 +9,20 @@
           wx:for="{{identitiesDetails.totalPlayers}}" 
           wx:key="index"
           style="border: 2rpx {{playersstatus[index].bordercolor}} solid; border-radius: 20rpx">
-      <image src="../../img/unknow.jpg" id="{{index}}"></image>
+      <image src="{{playersstatus[index].icon}}" 
+             id="{{index}}" 
+             class="{{playersstatus[index].gray}}"></image>
       <label>{{index+1}}</label>
     </view> 
   </view>
   <view id="progressContainer">
     <text id="progressHint" hidden="{{progresshidden}}">{{progresshint}}</text>
+  </view>
+  <view id="confirmButton">
+    <button type="primary" bindtap="selectionconfirmed" hidden="{{buttonhidden}}">确认{{status}}</button>
+  </view>
+  <view id="cancelButton">
+    <button type="primary" bindtap="selectioncanceled" hidden="{{cancelbuttonhidden}}">{{cancelmove}}</button>
   </view>
 
 </view>
