@@ -3,6 +3,6 @@
 <view>
   <checkbox id="checkbox"></checkbox>
   <label for="checkbox">
-    <image src="../../img/cupid.jpg"></image>
+    <image src="../../img/thumb_up.jpg"></image>
   </label>
 </view>

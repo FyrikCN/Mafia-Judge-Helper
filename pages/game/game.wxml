@@ -12,11 +12,24 @@
       <image src="{{playersstatus[index].icon}}" 
              id="{{index}}" 
              class="{{playersstatus[index].gray}}"></image>
-      <label>{{index+1}}</label>
+      <rich-text>
+        {{index+1}}
+        <image src="../../img/shield3.jpg" id="shield" wx:if="{{playersstatus[index].guarded}}"/>
+      </rich-text>
     </view> 
   </view>
   <view id="progressContainer">
-    <text id="progressHint" hidden="{{progresshidden}}">{{progresshint}}</text>
+    <rich-text id="progressHint" hidden="{{progresshidden}}">
+      {{progresshint}}
+      <block wx:if="{{status == '开枪状态'}}">
+        <image class="thumbs" src="../../img/thumb_up.jpg" wx:if="{{senioridentities[2].canshoot}}"/>
+        <image class="thumbs" src="../../img/thumb_down.jpg" wx:else/>
+      </block>
+      <block wx:if="{{status == '验人结果'}}">
+        <image class="thumbs" src="../../img/thumb_up.jpg" wx:if="{{senioridentities[3].goodguy}}"/>
+        <image class="thumbs" src="../../img/thumb_down.jpg" wx:else/>
+      </block>
+    </rich-text>
   </view>
   <view id="confirmButton">
     <button type="primary" bindtap="selectionconfirmed" hidden="{{buttonhidden}}">确认{{status}}</button>

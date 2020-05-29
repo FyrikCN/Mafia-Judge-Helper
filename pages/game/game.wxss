@@ -35,8 +35,24 @@ image {
   filter: grayscale();
 }
 
+.guarded {
+  color: #ebeb12e5;
+  font: bold;
+}
+
+#shield {
+  height: 40rpx;
+  width: 40rpx;
+}
+
 #progressContainer {
   margin-top: 50rpx;
+}
+
+.thumbs {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 10rpx;
 }
 
 #confirmButton {
