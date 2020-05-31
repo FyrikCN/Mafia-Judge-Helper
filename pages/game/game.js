@@ -14,6 +14,7 @@ Page({
       villagerAmount: 3,
       totalPlayers: 9
     },
+    filteredSeniors: [0, 1, 2],
     playersstatus: [
       {id: 0, identity: '', checked: false, loved: false, shot: false, guarded: false,
       saved: false, poisoned: false, killed: false, dead: false, silenced: false, bordercolor: ""}
@@ -51,25 +52,15 @@ Page({
    */
   onLoad: function (options) {
     this.setData({identitiesDetails: app.globalData.identitiesDetails});
+    this.setData({filteredSeniors: this.data.identitiesDetails.seniorSelected});
     this.createPlayers(this.data.identitiesDetails.totalPlayers);
     this.nightTime(this.data.daynum);
     this.setData({maximumplayers: this.data.identitiesDetails.werewolfAmount});
   },
 
   nightTime(daynum) {
-    //this.robber();
     this.cupid(daynum);
-    /*
-    this.werewolf(daynum);
-    this.witch(daynum);
-    this.guard(daynum);
-    this.hunter(daynum);
-    this.elder(daynum);
-    this.seer(daynum);
-    this.dayTime(daynum);
-    */
   },
-  dayTime(daynum) {},
 
   werewolf(daynum) {
     if (daynum == 1){}
@@ -115,271 +106,70 @@ Page({
   },
 
   selectionconfirmed() {
+    var werewolf = require('../../utils/werewolf.js');
+    var witch = require('../../utils/witch.js');
+    var guard = require('../../utils/guard.js');
+    var hunter = require('../../utils/hunter.js');
+    var seer = require('../../utils/seer.js');
+    var nextStatus = require('../../utils/nextstatus.js');
     if (this.data.daynum == 1)  // 第 1 天
     {
       if (this.data.dayornight == '黑夜')  // 黑夜
       {
         if (this.data.status == '狼人')  // 狼人阶段
-        {
-          for (let i = 0; i < this.data.identitiesDetails.totalPlayers; i++) {
-            if (this.data.playersstatus[i].checked == true) {
-              var player = 'playersstatus[' + i + ']';
-              this.setData({
-                [player + '.identity']: '狼人',
-                [player + '.icon']: "../../img/werewolf.jpg",
-                [player + '.bordercolor']: 'transparent',
-                [player + '.checked']: false,
-              })
-            }
-          }
-          this.setData({
-            status: "狼刀",
-            buttonhidden: true,
-            progresshint: "请标记狼刀对象。",
-            selectedplayers: 0,
-            maximumplayers: 1
-          })
-        }
+          werewolf.setWerewolves(this);
 
         else if (this.data.status == '狼刀')  // 狼刀阶段
         {
-          for (let i = 0; i < this.data.identitiesDetails.totalPlayers; i++) {
-            var player = 'playersstatus[' + i + ']';
-            var statuschange = 'statuschange';
-            if (this.data.playersstatus[i].checked == true) {
-              this.setData({
-                [player + '.gray']: 'gray',
-                [player + '.bordercolor']: 'transparent',
-                [player + '.checked']: false,
-                [player + '.killed']: true,
-                [statuschange + '.killed']: i
-              })
-            }
-          }
-          this.setData({
-            status: "女巫",
-            buttonhidden: true,
-            progresshint: "请标记女巫。",
-            selectedplayers: 0,
-            maximumplayers: 1
-          })
+          werewolf.kill(this);
+          nextStatus.whatIsNext(this);
         }
 
         else if (this.data.status == '女巫')  // 女巫阶段
-        {
-          for (let i = 0; i < this.data.identitiesDetails.totalPlayers; i++) {
-            if (this.data.playersstatus[i].checked == true) {
-              var player = 'playersstatus[' + i + ']';
-              this.setData({
-                [player + '.identity']: '女巫',
-                [player + '.icon']: "../../img/witch.jpg",
-                [player + '.bordercolor']: 'transparent',
-                [player + '.checked']: false,
-                status: "解药",
-                selectedplayers: 0,
-                maximumplayers: 0
-              })
-            }
-            if (this.data.playersstatus[i].killed == true) {
-              if (this.data.senioridentities[0].cansave)
-              {
-                this.setData({
-                  progresshint: "今晚 " + (i + 1) + " 号玩家死亡，是否使用解药？",
-                  cancelbuttonhidden: false,
-                  cancelmove: "不使用"
-                })
-              }
-            }
-          }
-        }
+          witch.setWitch(this);
 
         else if (this.data.status == '解药')  // 解药阶段
-        {
-          var statuschange = 'statuschange';
-          var player = 'playersstatus[' + this.data.statuschange.killed + ']';
-          var witchstatus = 'senioridentities[0]';
-          this.setData({
-            [player + '.killed']: false,
-            [player + '.gray']: '',
-            status: '毒药',
-            [statuschange + '.saved']: this.data.statuschange.killed,
-            [witchstatus + '.cansave']: false,
-            [witchstatus + '.saveusedtoday']: true
-          });
-
-          // 如果女巫今晚没有使用解药且还有毒药
-          if (!this.data.senioridentities[0].saveusedtoday && this.data.senioridentities.canpoison)
-          {
-            this.setData({
-              progresshint: '今晚要毒谁？',
-              buttonhidden: true,
-              selectedplayers: 0,
-              maximumplayers: 1,
-            })
-          }
-          // 如果女巫今晚使用了解药或者没有毒药
-          else
-          {
-            this.setData({
-              progresshint: '今晚女巫无法使用毒药。',
-              buttonhidden: true,
-              selectedplayers: 0,
-              maximumplayers: -1, // 将最大值设为-1，避免触发用户头像点击事件
-            })
-          }
-        }
+          witch.save(this);
 
         else if (this.data.status == '毒药')  // 毒药阶段
         {
-          for (let i = 0; i < this.data.identitiesDetails.totalPlayers; i++) {
-            if (this.data.playersstatus[i].checked == true)
-            {
-              var player = 'playersstatus[' + i + ']';
-              var statuschange = 'statuschange';
-              var witchstatus = 'senioridentities[0]';
-              this.setData({
-                [player + '.gray']: 'gray',
-                [player + '.bordercolor']: 'transparent',
-                [player + '.checked']: false,
-                [player + '.poisoned']: true,
-                [statuschange + '.poisoned']: i,
-                [witchstatus + '.canpoison']: false
-              })
-            }
-          }
-          this.setData({
-            status: "守卫",
-            buttonhidden: true,
-            cancelbuttonhidden: true,
-            cancelmove: '空守',
-            progresshint: "请标记守卫。",
-            selectedplayers: 0,
-            maximumplayers: 1
-          })
+          witch.poison(this);
+          nextStatus.whatIsNext(this);
         }
 
-        else if (this.data.status == '守卫')  //守卫阶段
-        {
-          for (let i = 0; i < this.data.identitiesDetails.totalPlayers; i++) {
-            if (this.data.playersstatus[i].checked == true) {
-              var player = 'playersstatus[' + i + ']';
-              this.setData({
-                [player + '.identity']: '守卫',
-                [player + '.icon']: "../../img/guard.jpg",
-                [player + '.bordercolor']: 'transparent',
-                [player + '.checked']: false,
-                status: "守护",
-                progresshint: '今晚你要守护谁？',
-                buttonhidden: true,
-                cancelbuttonhidden: false,
-                selectedplayers: 0,
-                maximumplayers: 1
-              })
-            }
-          }
-        }
+        else if (this.data.status == '守卫')  // 守卫阶段
+          guard.setGuard(this);
 
         else if (this.data.status == '守护')  // 守护阶段
         {
-          var player = 'playersstatus[' + this.data.statuschange.checked + ']';
-          var statuschange = 'statuschange';
-          var guardstatus = 'senioridentities[1]';
-          this.setData({
-            [player + '.bordercolor']: 'yellow',
-            [guardstatus + '.guard']: this.data.statuschange.checked,
-            [statuschange + '.guarded']: this.data.statuschange.checked,
-            [player + '.checked']: false,
-            [player + '.guarded']: true,
-            [statuschange + '.checked']: -1,
-            status: '猎人',
-            progresshint: '请标记猎人。',
-            buttonhidden: true,
-            cancelbuttonhidden: true,
-            selectedplayers: 0,
-            maximumplayers: 1
-          })
+          guard.protect(this);
+          nextStatus.whatIsNext(this);
         }
 
-        else if (this.data.status == '猎人')
+        else if (this.data.status == '猎人')  // 猎人阶段
+          hunter.setHunter(this);
+
+        else if (this.data.status == '开枪状态')  // 开枪状态
         {
-          var checkedId = this.data.statuschange.checked;
-          var player = 'playersstatus[' + checkedId + ']';
-          var statuschange = 'statuschange';
-          var gunnerstatus = 'senioridentities[2]';
-          this.setData({
-            [gunnerstatus + '.canshoot']: !this.data.playersstatus[checkedId].poisoned
-          })
-          this.setData({
-            [player + '.identity']: '猎人',
-            [player + '.icon']: "../../img/hunter.jpg",
-            [player + '.bordercolor']: 'transparent',
-            [player + '.checked']: false,
-            [statuschange + '.checked']: -1,
-            status: '开枪状态',
-            progresshint: '猎人今晚的开枪状态为 ',
-            buttonhidden: false,
-            cancelbuttonhidden: true,
-            selectedplayers: 0,
-            maximumplayers: 0
-          })
+          hunter.canIShoot(this);
+          nextStatus.whatIsNext(this);
         }
 
-        else if (this.data.status == '开枪状态')
-        {
-          this.setData({
-            status: '预言家',
-            progresshint: '请标记预言家。',
-            buttonhidden: true,
-            cancelbuttonhidden: true,
-            selectedplayers: 0,
-            maximumplayers: 1
-          })
-        }
+        else if (this.data.status == '预言家')  // 预言家阶段
+          seer.setSeer(this);
 
-        else if (this.data.status == '预言家')
+        else if (this.data.status == '验人')  // 验人阶段
         {
-          var checkedId = this.data.statuschange.checked;
-          var player = 'playersstatus[' + checkedId + ']';
-          this.setData({
-            [player + '.identity']: '预言家',
-            [player + '.icon']: "../../img/seer.jpg",
-            [player + '.bordercolor']: 'transparent',
-            [player + '.checked']: false,
-            [statuschange + '.checked']: -1,
-            status: '验人',
-            progresshint: '今晚你要查验谁的身份？',
-            buttonhidden: true,
-            cancelbuttonhidden: true,
-            selectedplayers: 0,
-            maximumplayers: 1
-          })
+          seer.detect(this);
+          nextStatus.whatIsNext(this);
         }
-
-        else if (this.data.status == '验人')
-        {
-          var checkedId = this.data.statuschange.checked;
-          var player = 'playersstatus[' + checkedId + ']';
-          var seerstatus = 'senioridentities[3]';
-          this.setData({
-            [seerstatus + '.goodguy']: this.data.playersstatus[checkedId].identity != '狼人'
-          })
-          this.setData({
-            [player + '.bordercolor']: 'transparent',
-            [player + '.checked']: false,
-            [statuschange + '.checked']: -1,
-            status: '验人结果',
-            progresshint: '你验到的人是 ',
-            buttonhidden: false,
-            cancelbuttonhidden: true,
-            selectedplayers: 0,
-            maximumplayers: 0
-          })
-        }
+        
       }
     }
   },
 
   selectioncanceled() {
+    var nextStatus = require('../../utils/nextstatus.js');
     // 如果女巫没有使用或不能使用解药
     if (this.data.status == '解药')
     {
@@ -410,15 +200,7 @@ Page({
 
     else if (this.data.status == '毒药')
     {
-      this.setData({
-        status: "守卫",
-        buttonhidden: true,
-        cancelbuttonhidden: true,
-        cancelmove: '空守',
-        progresshint: "请标记守卫。",
-        selectedplayers: 0,
-        maximumplayers: 1
-      })
+      nextStatus.whatIsNext(this);
     }
   },
 
@@ -442,7 +224,7 @@ Page({
     if (daynum == 1)
     {
     // 本局是否包含丘比特
-      if (this.data.identitiesDetails.seniorSelected.includes("5"))
+      if (this.data.identitiesDetails.seniorSelected.includes(5))
       {
         this.setData({
           status: "盗贼",
@@ -460,7 +242,7 @@ Page({
     if (daynum == 1)
     {
     // 本局是否包含丘比特
-      if (this.data.identitiesDetails.seniorSelected.includes("4"))
+      if (this.data.identitiesDetails.seniorSelected.includes(4))
       {
         this.setData({
           status: "丘比特",

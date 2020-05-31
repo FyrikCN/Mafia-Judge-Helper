@@ -106,13 +106,21 @@ Component({
     },
 
     _checkboxChange(e) {
-      console.log(e);
+      //console.log(e);
       this.setData({
         modifiedseniorammount: e.detail.value.length,
         content: this.data.seniorsidentities[1].description
       });
-      app.globalData.identitiesDetails.seniorSelected = e.detail.value;
-      //console.log(this.data.modifiedseniorammount);
+      //console.log(e.detail.value);
+      // 由于 e.detail.value 是一个由 string 组成的 array 而不是由 integer 组成，
+      // 所以此处需要把 string 依次转换为 integer
+      var convertedToNumbers = [];
+      for (let i = 0; i < e.detail.value.length; i++)
+      {
+        convertedToNumbers.push(parseInt(e.detail.value[i]));
+      }
+      app.globalData.identitiesDetails.seniorSelected = convertedToNumbers;
+      //console.log(app.globalData.identitiesDetails.seniorSelected);
       this.triggerEvent(
         "checkboxChange",
         {

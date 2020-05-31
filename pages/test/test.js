@@ -5,13 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    obj: {
+      arrInside: [0, 1, 2]
+    },
+    arrOutside: [0, 1, 2]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
+    if(this.data.obj.arrInside.includes('1'))
+      console.log('arrInside includes \'1\'');
+    else
+      console.log('arrInside doesn\'t includes \'1\'');
+    if(this.data.arrOutside.includes(1))
+      console.log('arrOutside includes 1');
+    else
+      console.log('arrOutside doesn\'t includes 1');
   },
 
   /**
