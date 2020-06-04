@@ -4,7 +4,7 @@
 }
 
 #dayNum {
-  margin-top: 50rpx;
+  margin-top: 40rpx;
 }
 
 .progress {
@@ -14,7 +14,7 @@
 #playersCards {
   width: 576rpx;
   display: flex;
-  margin-top: 50rpx;
+  margin-top: 40rpx;
   flex-wrap: wrap;
 }
 
@@ -46,7 +46,9 @@ image {
 }
 
 #progressContainer {
-  margin-top: 50rpx;
+  margin-top: 40rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
 }
 
 .thumbs {
@@ -55,10 +57,10 @@ image {
   border-radius: 10rpx;
 }
 
-#confirmButton {
-  margin-top: 50rpx;
+.confirmButton {
+  margin-top: 40rpx;
 }
 
-#cancelButton {
-  margin-top: 50rpx;
+.cancelButton {
+  margin-top: 40rpx;
 }

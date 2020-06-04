@@ -31,11 +31,20 @@
       </block>
     </rich-text>
   </view>
-  <view id="confirmButton">
-    <button type="primary" bindtap="selectionconfirmed" hidden="{{buttonhidden}}">确认{{status}}</button>
-  </view>
-  <view id="cancelButton">
-    <button type="primary" bindtap="selectioncanceled" hidden="{{cancelbuttonhidden}}">{{cancelmove}}</button>
-  </view>
-
+  <block wx:if="{{dayornight == '黑夜'}}">
+    <view class="confirmButton">
+      <button type="primary" bindtap="selectionconfirmednight" hidden="{{buttonhidden}}">确认{{status}}</button>
+    </view>
+    <view class="cancelButton">
+      <button type="primary" bindtap="selectioncancelednight" hidden="{{cancelbuttonhidden}}">{{cancelmove}}</button>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="confirmButton">
+      <button type="primary" bindtap="selectionconfirmedday" hidden="{{buttonhidden}}">{{confirmmove}}</button>
+    </view>
+    <view class="cancelButton">
+      <button type="primary" bindtap="selectioncancelednight" hidden="{{cancelbuttonhidden}}">{{cancelmove}}</button>
+    </view>
+  </block>
 </view>

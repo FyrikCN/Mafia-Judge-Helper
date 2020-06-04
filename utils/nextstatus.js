@@ -27,10 +27,15 @@ function whatIsNext(that) {
     that.data.filteredSeniors = that.data.filteredSeniors.filter(function(value, index, arr)
     { return value != 0;});
   }
+
+  else  // 所有神职都已经执行完毕
+  {
+    setNextToDayTime(that);
+    setNextToRunForSheriff(that);
+  }
 }
 
 function setNextToWitch(that) {
-  console.log('Next is Witch!');
   that.setData({
     status: "女巫",
     buttonhidden: true,
@@ -42,7 +47,6 @@ function setNextToWitch(that) {
 }
 
 function setNextToGuard(that) {
-  console.log('Next is Guard!');
   that.setData({
     status: "守卫",
     buttonhidden: true,
@@ -55,7 +59,6 @@ function setNextToGuard(that) {
 }
 
 function setNextToHunter(that) {
-  console.log('Next is Hunter!');
   that.setData({
     status: '猎人',
     progresshint: '请标记猎人。',
@@ -67,7 +70,6 @@ function setNextToHunter(that) {
 }
 
 function setNextToSeer(that) {
-  console.log('Next is Seer!');
   that.setData({
     status: '预言家',
     progresshint: '请标记预言家。',
@@ -75,6 +77,24 @@ function setNextToSeer(that) {
     cancelbuttonhidden: true,
     selectedplayers: 0,
     maximumplayers: 1
+  })
+}
+
+function setNextToDayTime(that) {
+  that.setData({
+    dayornight: '白天',
+  })
+}
+
+function setNextToRunForSheriff(that) {
+  that.setData({
+    status: '竞选警长',
+    confirmmove: '开始竞选',
+    progresshint: '天亮了，开始竞选警长。请标记参与竞选的玩家。',
+    buttonhidden: true,
+    cancelbuttonhidden: true,
+    selectedplayers: 0,
+    maximumplayers: -1
   })
 }
 

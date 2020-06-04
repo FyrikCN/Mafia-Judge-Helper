@@ -35,6 +35,7 @@ Page({
       guarded: -1,
       silenced: -1
     },
+    sheriffcandidates: [],
     selectedplayers: 0,
     maximumplayers: 0,
     bordercolor: "transparent",
@@ -83,7 +84,7 @@ Page({
         })
       }
       //若此玩家未被选中，且当还未选择足够的玩家时，执行
-      else if (this.data.selectedplayers < this.data.maximumplayers) 
+      else if (this.data.selectedplayers != this.data.maximumplayers) 
       {
         //console.log(id + " is a number");
         this.setData({
@@ -93,7 +94,10 @@ Page({
         });
       }
 
-      this.setData({buttonhidden: (this.data.selectedplayers == this.data.maximumplayers ? false : true)})
+      this.setData({buttonhidden: (this.data.selectedplayers >= this.data.maximumplayers ? false : true)})
+      // 竞选警长时，仅当选择了任意名玩家后才会显示按钮，避免错误操作。
+      if (this.data.status == '竞选警长')
+        this.setData({buttonhidden: (this.data.selectedplayers == 0 ? true : false)})
 
       //if (this.data.status == '守护' || this.data.status == '猎人')
       //{
@@ -105,7 +109,7 @@ Page({
     }
   },
 
-  selectionconfirmed() {
+  selectionconfirmednight() {
     var werewolf = require('../../utils/werewolf.js');
     var witch = require('../../utils/witch.js');
     var guard = require('../../utils/guard.js');
@@ -161,14 +165,26 @@ Page({
         else if (this.data.status == '验人')  // 验人阶段
         {
           seer.detect(this);
+        }
+
+        else if (this.data.status == '验人结果')  // 验人结果
+        {
           nextStatus.whatIsNext(this);
         }
-        
       }
     }
   },
 
-  selectioncanceled() {
+  selectionconfirmedday() {
+    var sheriff = require('../../utils/sheriff.js');
+    if (this.data.status == '竞选警长')
+      sheriff.setSheriffCandidates(this);
+    
+    else if (this.data.status == '警上发言')
+      sheriff.candidatesSpeach(this);
+  },
+
+  selectioncancelednight() {
     var nextStatus = require('../../utils/nextstatus.js');
     // 如果女巫没有使用或不能使用解药
     if (this.data.status == '解药')
